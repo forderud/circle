@@ -33,7 +33,7 @@ static const u8 DNSServer[]      = {192, 168, 0, 1};
 static const char FromKernel[] = "kernel";
 
 CKernel::CKernel (void)
-:	m_Screen (m_Options.GetWidth (), m_Options.GetHeight ()),
+:	m_Screen (800, 600),
 	m_Timer (&m_Interrupt),
 	m_Logger (m_Options.GetLogLevel (), &m_Timer),
 	m_USBHCI (&m_Interrupt, &m_Timer)
@@ -104,6 +104,9 @@ TShutdownMode CKernel::Run (void)
 	m_Net.GetConfig ()->GetIPAddress ()->Format (&IPString);
 	m_Logger.Write (FromKernel, LogNotice, "Open \"http://%s/\" in your web browser!",
 			(const char *) IPString);
+	
+	for (int i = 0; i < 20; ++i)
+		m_Logger.Write ("", LogNotice, "");
 
 	new CWebServer (&m_Net, &m_ActLED);
 

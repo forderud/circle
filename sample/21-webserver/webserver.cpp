@@ -86,18 +86,28 @@ THTTPStatus CWebServer::GetContent (const char  *pPath,
 	    || strcmp (pPath, "/index.html") == 0)
 	{
 		assert (pFormData != 0);
-		if (strcmp (pFormData, "actled=1") == 0)
+		if (strcmp (pFormData, "message=") != 0)
 		{
 			m_pActLED->On ();
+            
+            CString message(pFormData+8);
+            message.Replace("+",   " "); // space
+            message.Replace("%E6", "ae");
+            message.Replace("%F8", "oe");
+            message.Replace("%E5", "aa");
+            message.Replace("%C6", "AE");
+            message.Replace("%D8", "OE");
+            message.Replace("%C5", "AA");
 
-			String.Format (s_Index, "", "checked", "ledon.png");	// must match index.html
+			CLogger::Get()->Write("", LogNotice, message);
 		}
 		else
 		{
 			m_pActLED->Off ();
-
-			String.Format (s_Index, "checked", "", "ledoff.png");
+            
+            CLogger::Get()->Write("", LogNotice, "");
 		}
+        String = s_Index;
 
 		pContent = (const u8 *) (const char *) String;
 		nLength = String.GetLength ();

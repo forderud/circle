@@ -222,8 +222,8 @@ void CHTTPDaemon::Worker (void)
 	default:			pMethod = "UNKNOWN";	break;
 	}
 
-	CLogger::Get ()->Write (FromHTTPDaemon, LogDebug, "%s \"%s %s\" %u %u",
-				(const char *) IPString, pMethod, m_RequestURI, Status, nContentLength);
+	//CLogger::Get ()->Write (FromHTTPDaemon, LogDebug, "%s \"%s %s\" %u %u",
+	//			(const char *) IPString, pMethod, m_RequestURI, Status, nContentLength);
 
 	// send HTTP response header
 	CString Header;
